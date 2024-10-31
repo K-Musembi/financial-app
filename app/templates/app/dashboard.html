@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section class="dashboard-section">
+  <h2>Welcome {{ username }}</h2>
+  {% for budget in budgets %}
+  <div class="budget-panel">
+    <h3>{{ budget.period }} budget: {{ budget.amount }}</h3>
+    <p><strong>Total Expenditure:</strong> {{ budget.total_expenditure }}</p>
+    <p><strong>Highest Expenditure Item:</strong> {{ budget.highest_expenditure_item }}</p>
+    <a href="{% url 'app:expense' budget_id=budget._id %}" class="btn">record new expense</a>
+  </div>
+  {% endfor %}
+</section>
+{% endblock %}

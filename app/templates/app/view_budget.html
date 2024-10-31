@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Budget Progress{% endblock %}
+{% block content %}
+<section class="progress-section">
+  <h2>{{ budget.title }} Progress</h2>
+  <div class="progress-info">
+    <p><strong>Total Expenditure:</strong> {{ budget.total_expenditure }}</p>
+    <p><strong>Highest Expenditure Item:</strong> {{ budget.highest_expenditure_item }}</p>
+  </div>
+  <a href="{{ url_for('record_expenditure', budget_id=budget.id) }}" class="btn">new expense</a>
+</section>
+{% endblock %}

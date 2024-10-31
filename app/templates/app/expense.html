@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Record Expenditure{% endblock %}
+{% block content %}
+<section class="form-section">
+  <h2>Record new expense</h2>
+  <form action="{% url 'app:new_expense' budget_id=budget.id %}" method="POST">
+    <label for="category">Category:</label>
+    <select id="category" name="category" required>
+      <option value="groceries">Groceries</option>
+      <option value="food">Food</option>
+      <option value="rent">Rent</option>
+      <option value="electricity_water">Electricity/Water</option>
+      <option value="internet_connection">Internet Connection</option>
+      <option value="airtime">Airtime</option>
+      <option value="entertainment">Entertainment</option>
+      <option value="debt_paymet">Debt Payment</option>
+      <option value="fee_payment">Fee Payment</option>
+      <option value="fare">Fare</option>
+      <option value="Laundry">Laundry</option>
+      <option value="miscalleneous">Miscalleneous</option>
+      <!-- additional categories... -->
+    </select>
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" placeholder="Amount" required>
+    <button type="submit" class="btn">Submit</button>
+  </form>
+</section>
+{% endblock %}

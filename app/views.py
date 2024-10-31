@@ -1,53 +1,87 @@
 #!/usr/bin/python3
 """views module"""
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from .models import User, Budget, Expense
 from werkzeug.security import check_password_hash
 
 user_collection = User()
+expense_collection = Expense()
 
 
 def index(request):
     """home page view"""
-    return HttpResponse("Welcome to Pesa Track!")
-    # provide simple login form on this homepage, with redirect to sign up page html
+    return render(request, 'app/index.html')
 
-def sign_up(request):
+def signup(request):
     """sign up page"""
     if request.method == "POST":
         username = request.POST.get("username")
-        # email = request.POST.get("email")
+        email = request.POST.get("email")
         password = request.POST.get("password")
 
-        new_user = user_collection.find_one({"name": username})
+        new_user = user_collection.find_one({"email": email})
         if new_user and check_password_hash(new_user["password"], password):
-            return HttpResponse("User already registered")
-            # redirect to sign up page html
+            return render(request, 'app/index.html')
 
-        user = user_collection.create_user(username, password)
+        user = user_collection.create_user(username, email, password)
         request.session["user_id"] = str(user["_id"])
-        return HttpResponse("welcome to dashboard")
+        return render(request, 'app/no_budget.html', username)
 
-    return HttpResponse("Back to home page")
+    return render(request, 'app/index.html')
 
 def login(request):
     """login page"""
     if request.method == "POST":
-        username = request.POST.get("username")
+        # username = request.POST.get("username")
+        email = request.POST.get("email")
         password = request.POST.get("password")
 
-        user = user_collection.find_one({"name": username})
+        user = user_collection.find_one({"email": email})
 
         if user and check_password_hash(user["password"], password):
             request.session["user_id"] = str(user["_id"])
-            return HttpResponse("Welcome back to dashboard!")  # redirect to dashboard
+            return render(request, 'app/dashboard.html', user["username"])
         
         return HttpResponse("error: invalid credentials")
     # return redirect(request, "homepage")
-    return HttpResponse("Back to home page!")
+    return render(request, 'app/index.html')
 
 def dashboard(request):
     """user dashboard"""
     return HttpResponse("Make a budget!")
+
+def make_budget(request):
+    """make new budget"""
+    return render(request, 'app/make_budget.html')
+
+def expense(request, budget_id):
+    """capture new expense"""
+    budget = get_object_or_404(Budget, id=budget_id)
+
+    return render(request, 'app/expense.html', budget)
+
+def create_expense(request, budget_id):
+    """create new expense record"""
+    if request.method == 'POST':
+        category = request.POST.get("category")
+        amount = request.POST.get("amount")
+        
+        budget = get_object_or_404(Budget, id=budget_id)
+        expense_collection.create_expense(budget_id, category, amount)
+        expenses = expense_collection.find({"budget_id": budget_id})
+
+        total = 0
+        largest = expenses[0]
+        for expense in expenses:
+            total += expense["amount"]
+            if expense["amount"] > largest["amount"]:
+                largest = expense
+        
+        category_name = largest["category"]
+        return render(request, 'app/dashboard.html', {
+            "total": total,
+            "category_name": category_name
+        })
+    
