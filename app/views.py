@@ -5,14 +5,29 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from .models import User, Budget, Expense
 from werkzeug.security import check_password_hash
+from django.contrib import messages
 
 user_collection = User()
 expense_collection = Expense()
+budget_collection = Budget()
 
 
 def index(request):
     """home page view"""
+    user_id = request.session.get("user_id")
+
+    if user_id:
+        return redirect("app:dashboard")
+    
     return render(request, 'app/index.html')
+
+def signup_page(request):
+    """return signup page"""
+    return render(request, 'app/signup.html')
+
+def login_page(request):
+    """return login page"""
+    return render(request, 'app/login.html')
 
 def signup(request):
     """sign up page"""
@@ -22,14 +37,16 @@ def signup(request):
         password = request.POST.get("password")
 
         new_user = user_collection.find_one({"email": email})
-        if new_user and check_password_hash(new_user["password"], password):
-            return render(request, 'app/index.html')
+        
+        if not new_user:
+            user = user_collection.create_user(username, email, password)
+            request.session["user_id"] = str(user.inserted_id)
+            
+            return redirect("app:dashboard")
+        else:
+            messages.error(request, "email already registered!")
 
-        user = user_collection.create_user(username, email, password)
-        request.session["user_id"] = str(user["_id"])
-        return render(request, 'app/no_budget.html', username)
-
-    return render(request, 'app/index.html')
+    return redirect("app:signup_page")
 
 def login(request):
     """login page"""
@@ -42,46 +59,92 @@ def login(request):
 
         if user and check_password_hash(user["password"], password):
             request.session["user_id"] = str(user["_id"])
-            return render(request, 'app/dashboard.html', user["username"])
+            # username = user["username"]
+            return redirect("app:dashboard")
+        else:
+            messages.error(request, "invalid credentials")
         
-        return HttpResponse("error: invalid credentials")
-    # return redirect(request, "homepage")
-    return render(request, 'app/index.html')
+    return redirect("app:login_page")
 
 def dashboard(request):
     """user dashboard"""
-    return HttpResponse("Make a budget!")
+    from bson import ObjectId
+
+    user_id = request.session.get("user_id")
+
+    if not user_id:
+        return redirect("app:login_page")
+    
+    user_id = ObjectId(user_id)
+    user = user_collection.find_one({"_id": user_id})
+    username = user["name"]
+    budgets = budget_collection.find({"user_id": user_id})
+
+    for budget in budgets:
+        budget["budgetid"] = budget["_id"]
+
+    return render(request, "app/dashboard.html", {
+        "username": username.capitalize(),
+        "budgets": budgets
+    })
 
 def make_budget(request):
     """make new budget"""
+    user_id = request.session.get("user_id")
+
+    if not user_id:
+        return redirect("app.login")
+    
     return render(request, 'app/make_budget.html')
 
-def expense(request, budget_id):
+def create_budget(request):
+    """create new budget record / document"""
+    from bson import ObjectId
+
+    if request.method == 'POST':
+        user_id = request.session.get("user_id")
+        time_period = request.POST.get('time_period')
+        amount = request.POST.get('amount')
+
+        user_id = ObjectId(user_id)
+        total_expenditure = 0
+        budget_collection.create_budget(
+            user_id, time_period, amount, total_expenditure)
+
+        messages.success(request, "Budget created successfully!")
+        return redirect("app:dashboard")
+
+    return redirect("app:index")
+
+def expense(request, budgetid):
     """capture new expense"""
-    budget = get_object_or_404(Budget, id=budget_id)
+    # budget = get_object_or_404(Budget, id=budget_id)
+    # budget = budget_collection.find_one({"_id": budget_id})
 
-    return render(request, 'app/expense.html', budget)
+    return render(request, 'app/expense.html', budgetid)
 
-def create_expense(request, budget_id):
+def new_expense(request, budgetid):
     """create new expense record"""
     if request.method == 'POST':
         category = request.POST.get("category")
         amount = request.POST.get("amount")
-        
-        budget = get_object_or_404(Budget, id=budget_id)
-        expense_collection.create_expense(budget_id, category, amount)
-        expenses = expense_collection.find({"budget_id": budget_id})
+    
+        expense_collection.create_expense(budgetid, category, amount)
+        budget = budget_collection.find_one({"_id": budgetid})
+        # expenses = expense_collection.find({"budget_id": budget_id})
 
-        total = 0
-        largest = expenses[0]
-        for expense in expenses:
-            total += expense["amount"]
-            if expense["amount"] > largest["amount"]:
-                largest = expense
-        
-        category_name = largest["category"]
-        return render(request, 'app/dashboard.html', {
-            "total": total,
-            "category_name": category_name
-        })
+        total_expenditure = amount + budget["total_expenditure"]
+        budget_collection.update(
+            {"_id": budgetid}, {"total_expenditure": total_expenditure})
+    
+        return redirect("app:dashboard")
+ 
+    return redirect("app:index")
+
+def logout(request):
+    """log out user"""
+    request.session.flush()
+
+    messages.success(request, "You have successfully logged out!")
+    return redirect("app:index")
     

@@ -11,10 +11,10 @@ class User(BaseModel):
         """create collection"""
         super().__init__("user")  # collection name
     
-    def create_user(self, name, password):
+    def create_user(self, name, email, password):
         """create user document / object"""
         return self.save({
             "name": name,
-            # "email": email,
+            "email": email,
             "password": generate_password_hash(password)
         })

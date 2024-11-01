@@ -2,7 +2,7 @@
 """base model module"""
 from django.conf import settings
 from bson.objectid import ObjectId
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class BaseModel:
@@ -13,8 +13,8 @@ class BaseModel:
     
     def save(self, data):
         """create document / object"""
-        data['created_at'] = datetime.now(datetime.timezone.utc)
-        data['updated_at'] = datetime.now(datetime.timezone.utc)
+        data['created_at'] = datetime.now(timezone.utc)
+        data['updated_at'] = datetime.now(timezone.utc)
         return self.collection.insert_one(data)
     
     def find(self, query):

@@ -1,9 +1,10 @@
-{% extends "layout.html" %}
+{% extends "app/layout.html" %}
 {% block title %}Record Expenditure{% endblock %}
 {% block content %}
 <section class="form-section">
   <h2>Record new expense</h2>
-  <form action="{% url 'app:new_expense' budget_id=budget.id %}" method="POST">
+  <form action="{% url 'app:new_expense' budgetid=budgetid %}" method="POST">
+    {% csrf_token %}
     <label for="category">Category:</label>
     <select id="category" name="category" required>
       <option value="groceries">Groceries</option>

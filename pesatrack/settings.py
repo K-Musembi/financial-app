@@ -23,10 +23,7 @@ MONGO_URI = os.getenv("MONGO_URI")
 
 # Establish MongoDB connection
 client = MongoClient(MONGO_URI)
-db = client["pesatrack_db"]
-
-# assign db as settings object
-DATABASE_CLIENT = db
+DATABASE_CLIENT = client["pesatrack_db"]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +42,11 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', '172.27.243.149']
 
 
 # Application definition
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://172.27.243.149:8000/',
+    'http://localhost:8000',
+]
 
 INSTALLED_APPS = [
     'app',
@@ -90,12 +92,12 @@ WSGI_APPLICATION = 'pesatrack.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}"""
+}
 
 
 # Password validation

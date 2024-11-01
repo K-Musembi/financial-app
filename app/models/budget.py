@@ -10,10 +10,11 @@ class Budget(BaseModel):
         """create collection"""
         super().__init__("budget")  # collection name
     
-    def create_budget(self, user_id, period, amount):
+    def create_budget(self, user_id, period, amount, total_expenditure):
         """create document / object"""
         return self.save({
             "user_id": user_id,
             "period": period,
-            "amount": amount
+            "amount": amount,
+            "total_expenditure": total_expenditure
         })
