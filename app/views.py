@@ -139,7 +139,7 @@ def new_expense(request, budgetid):
 
         if budget:
             total_expenditure = budget.get("total_expenditure", 0)
-            total_expenditure += amount
+            total_expenditure += int(amount)
 
             budget_collection.update(
                 {"_id": ObjectId(budgetid)}, {"total_expenditure": total_expenditure})

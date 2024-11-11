@@ -27,7 +27,7 @@ class BaseModel:
     
     def update(self, query, update_data):
         """update document"""
-        update_data['updated_at'] = datetime.now(datetime.timzone.utc)
+        update_data['updated_at'] = datetime.now(timezone.utc)
         return self.collection.update_one(query, {'$set': update_data})
     
     def delete(self, query):
