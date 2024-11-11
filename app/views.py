@@ -40,6 +40,7 @@ def signup(request):
         
         if not new_user:
             user = user_collection.create_user(username, email, password)
+            # 'user.inserted_id' is for new document. After, use 'user._id'
             request.session["user_id"] = str(user.inserted_id)
             
             return redirect("app:dashboard")
@@ -75,6 +76,7 @@ def dashboard(request):
     if not user_id:
         return redirect("app:login_page")
     
+    # default id in the PyMongo database is of type ObjectID
     user_id = ObjectId(user_id)
     user = user_collection.find_one({"_id": user_id})
     username = user["name"]
