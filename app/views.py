@@ -83,7 +83,7 @@ def dashboard(request):
     budgets = budget_collection.find({"user_id": user_id})
 
     for budget in budgets:
-        budget["budgetid"] = budget["_id"]
+        budget["budgetid"] = str(budget["_id"])
 
     return render(request, "app/dashboard.html", {
         "username": username.capitalize(),
@@ -127,12 +127,14 @@ def expense(request, budgetid):
 
 def new_expense(request, budgetid):
     """create new expense record"""
+    from bson import ObjectId
+
     if request.method == 'POST':
         category = request.POST.get("category")
         amount = request.POST.get("amount")
     
         expense_collection.create_expense(budgetid, category, amount)
-        budget = budget_collection.find_one({"_id": budgetid})
+        budget = budget_collection.find_one({"_id": ObjectId(budgetid)})
         # expenses = expense_collection.find({"budget_id": budget_id})
 
         if budget:
@@ -140,7 +142,7 @@ def new_expense(request, budgetid):
             total_expenditure += amount
 
             budget_collection.update(
-                {"_id": budgetid}, {"total_expenditure": total_expenditure})
+                {"_id": ObjectId(budgetid)}, {"total_expenditure": total_expenditure})
     
             return redirect("app:dashboard")
         else:
