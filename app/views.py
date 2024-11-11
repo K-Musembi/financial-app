@@ -123,7 +123,7 @@ def expense(request, budgetid):
     # budget = get_object_or_404(Budget, id=budget_id)
     # budget = budget_collection.find_one({"_id": budget_id})
 
-    return render(request, 'app/expense.html', budgetid)
+    return render(request, 'app/expense.html', {"budgetid": budgetid})
 
 def new_expense(request, budgetid):
     """create new expense record"""
@@ -135,7 +135,9 @@ def new_expense(request, budgetid):
         budget = budget_collection.find_one({"_id": budgetid})
         # expenses = expense_collection.find({"budget_id": budget_id})
 
-        total_expenditure = amount + budget["total_expenditure"]
+        total_expenditure = budget.get("total_expenditure", 0)
+        total_expenditure += amount
+
         budget_collection.update(
             {"_id": budgetid}, {"total_expenditure": total_expenditure})
     
