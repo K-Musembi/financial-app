@@ -135,13 +135,16 @@ def new_expense(request, budgetid):
         budget = budget_collection.find_one({"_id": budgetid})
         # expenses = expense_collection.find({"budget_id": budget_id})
 
-        total_expenditure = budget.get("total_expenditure", 0)
-        total_expenditure += amount
+        if budget:
+            total_expenditure = budget.get("total_expenditure", 0)
+            total_expenditure += amount
 
-        budget_collection.update(
-            {"_id": budgetid}, {"total_expenditure": total_expenditure})
+            budget_collection.update(
+                {"_id": budgetid}, {"total_expenditure": total_expenditure})
     
-        return redirect("app:dashboard")
+            return redirect("app:dashboard")
+        else:
+            return redirect("app:dashboard")
  
     return redirect("app:index")
 
