@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from "../config";
 
-const BudgetDashboard = ({ budgets }) => {
+const BudgetDashboard = () => {
+    const [budgets, setBudgets] = useState([]);
     const navigate = useNavigate()
+
+    // useEffect defines action to occur when page is loaded
+    useEffect(() => {
+        const fetchBudgets = async () => {
+            const response = await fetch(`${API_URL}/budgetdashboard`);
+
+            if (response.ok) {
+                const data = await response.json();
+                // data is a an object; one of it's properties should be budgets
+                setBudgets(data.budgets || []);
+            } else {
+                alert("Budgets could not be fetched");
+            }
+        }
+        fetchBudgets();
+    }, []);
     
     return (
         <div className="budget-container">

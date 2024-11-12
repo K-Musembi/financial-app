@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
 
-const Login = ({ onLogin }) => {
+const Login = (onLogin) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
