@@ -17,8 +17,8 @@ const Login = (onLogin) => {
             body: JSON.stringify({ email, password })
         });
         if (response.ok) {
-            const result = await response.json();
-            onLogin(result.token);
+            // const result = await response.json();
+            onLogin();
             alert("Successful login!");
             navigate("/dashboard");
         } else {

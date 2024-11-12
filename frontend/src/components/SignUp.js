@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../config";
 
-const SignUp = () => {
+const SignUp = (onLogin) => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -22,6 +22,7 @@ const SignUp = () => {
             setUsername("");
             setEmail("");
             setPassword("");
+            onLogin();
             navigate("/dashboard");
         } else {
             alert("Please try again.");
