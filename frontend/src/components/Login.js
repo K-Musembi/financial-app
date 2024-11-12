@@ -14,7 +14,8 @@ const Login = (onLogin) => {
         const response = await fetch(`${API_URL}/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password }),
+            credentials: "include"
         });
         if (response.ok) {
             // const result = await response.json();

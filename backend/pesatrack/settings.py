@@ -46,7 +46,10 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', '172.27.243.149']
 CSRF_TRUSTED_ORIGINS = [
     'http://172.27.243.149:8000/',
     'http://localhost:8000',
+    'http://localhost:3000',  # React
 ]
+
+CSRF_COOKIE_HTTPONLY = False  # Allow React access to CSRF cookie
 
 INSTALLED_APPS = [
     'app',
@@ -57,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +71,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'pesatrack.urls'
 

@@ -15,7 +15,8 @@ const SignUp = (onLogin) => {
         const response = await fetch(`${API_URL}/signup`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, email, password })
+            body: JSON.stringify({ username, email, password }),
+            credentials: "include"
         });
         if (response.ok) {
             alert("Successfully signed up!");

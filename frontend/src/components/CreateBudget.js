@@ -14,7 +14,8 @@ const CreateBudget = () => {
         const response = await fetch(`${API_URL}/createbudget`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ timePeriod, amount })
+            body: JSON.stringify({ timePeriod, amount }),
+            credentials: "include"
         });
         if (response.ok) {
             navigate("/budgetdashboard");

@@ -4,12 +4,15 @@ import { API_URL } from "../config";
 
 const BudgetDashboard = () => {
     const [budgets, setBudgets] = useState([]);
+    const [budgetId, setBudgetId] = useState("");
     const navigate = useNavigate()
 
     // useEffect defines action to occur when page is loaded
     useEffect(() => {
         const fetchBudgets = async () => {
-            const response = await fetch(`${API_URL}/budgetdashboard`);
+            const response = await fetch(`${API_URL}/budgetdashboard`, {
+                credentials: "include"
+            });
 
             if (response.ok) {
                 const data = await response.json();
@@ -21,7 +24,7 @@ const BudgetDashboard = () => {
         }
         fetchBudgets();
     }, []);
-    
+
     return (
         <div className="budget-container">
             {budgets && budgets.length > 0 ? (
@@ -30,7 +33,11 @@ const BudgetDashboard = () => {
                         <h2>{budget.period}</h2>
                         <p>Amount: {budget.amount}</p>
                         <p>Total Expenditure: {budget.total_expenditure}</p>
-                        <button onClick={() => navigate('/addexpense')}>Add expenses</button>
+                        <button onClick={() => {
+                            setBudgetId(budget.budgetid);
+                            navigate('/addexpense', { state: { budgetId }});
+                            // repetition budget.budgetid, incase state isn't updated immediately 
+                        }}>Add expenses</button>
                     </div>
                 ))
             ) : (

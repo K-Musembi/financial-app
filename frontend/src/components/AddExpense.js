@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
 
-const AddExpense = () => {
+const AddExpense = ({ budgetId }) => {
     const [category, setCategory] = useState("");
     const [amount, setAmount] = useState("");
 
@@ -14,7 +14,8 @@ const AddExpense = () => {
         const response = await fetch(`${API_URL}/addexpense`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ category, amount })
+            body: JSON.stringify({ category, amount, budgetId }),
+            credentials: "include"
         });
         if (response.ok) {
             navigate("/budgetdashboard");

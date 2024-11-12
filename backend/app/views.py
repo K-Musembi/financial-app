@@ -6,6 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from .models import User, Budget, Expense
 from werkzeug.security import check_password_hash
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 user_collection = User()
 expense_collection = Expense()
@@ -29,6 +30,7 @@ def login_page(request):
     """return login page"""
     return render(request, 'app/login.html')
 
+@csrf_exempt
 def signup(request):
     """sign up page"""
     if request.method == "POST":
@@ -43,12 +45,15 @@ def signup(request):
             # 'user.inserted_id' is for new document. After, use 'user._id'
             request.session["user_id"] = str(user.inserted_id)
             
-            return redirect("app:dashboard")
+            # return redirect("app:budget_dashboard")
+            return HttpResponse(status=200)
         else:
             messages.error(request, "email already registered!")
 
-    return redirect("app:signup_page")
+    # return redirect("app:signup_page")
+    return HttpResponse(status=401)
 
+@csrf_exempt
 def login(request):
     """login page"""
     if request.method == "POST":
@@ -61,13 +66,16 @@ def login(request):
         if user and check_password_hash(user["password"], password):
             request.session["user_id"] = str(user["_id"])
             # username = user["username"]
-            return redirect("app:dashboard")
+            # return redirect("app:budget_dashboard")
+            return HttpResponse(status=200)
         else:
             messages.error(request, "invalid credentials")
         
-    return redirect("app:login_page")
+    # return redirect("app:login_page")
+    return HttpResponse(status=403)
 
-def dashboard(request):
+@csrf_exempt
+def budget_dashboard(request):
     """user dashboard"""
     from bson import ObjectId
 
@@ -84,11 +92,14 @@ def dashboard(request):
 
     for budget in budgets:
         budget["budgetid"] = str(budget["_id"])
-
-    return render(request, "app/dashboard.html", {
+    
+    data = {
         "username": username.capitalize(),
         "budgets": budgets
-    })
+    }
+
+    # return render(request, "app/budget_dashboard.html", data)
+    return JsonResponse(data, status=200)
 
 def make_budget(request):
     """make new budget"""
@@ -99,7 +110,8 @@ def make_budget(request):
     
     return render(request, 'app/make_budget.html')
 
-def create_budget(request):
+@csrf_exempt
+def createbudget(request):
     """create new budget record / document"""
     from bson import ObjectId
 
@@ -114,9 +126,10 @@ def create_budget(request):
             user_id, time_period, amount, total_expenditure)
 
         messages.success(request, "Budget created successfully!")
-        return redirect("app:dashboard")
+        # return redirect("app:budget_dashboard")
+        return HttpResponse(status=200)
 
-    return redirect("app:index")
+    return HttpResponse(status=401)
 
 def expense(request, budgetid):
     """capture new expense"""
@@ -125,13 +138,16 @@ def expense(request, budgetid):
 
     return render(request, 'app/expense.html', {"budgetid": budgetid})
 
-def new_expense(request, budgetid):
+# def addexpense(request, budgetid):
+@csrf_exempt
+def addexpense(request):
     """create new expense record"""
     from bson import ObjectId
 
     if request.method == 'POST':
         category = request.POST.get("category")
         amount = request.POST.get("amount")
+        budgetid = request.POST.get("budgetId")
     
         expense_collection.create_expense(budgetid, category, amount)
         budget = budget_collection.find_one({"_id": ObjectId(budgetid)})
@@ -144,16 +160,21 @@ def new_expense(request, budgetid):
             budget_collection.update(
                 {"_id": ObjectId(budgetid)}, {"total_expenditure": total_expenditure})
     
-            return redirect("app:dashboard")
+            # return redirect("app:budget_dashboard")
+            return HttpResponse(status=200)
         else:
-            return redirect("app:dashboard")
+            # return redirect("app:budget_dashboard")
+            return HttpResponse(status=200)
  
-    return redirect("app:index")
+    # return redirect("app:index")
+    return HttpResponse(status=401)
 
+@csrf_exempt
 def logout(request):
     """log out user"""
     request.session.flush()
 
     messages.success(request, "You have successfully logged out!")
-    return redirect("app:index")
+    # return redirect("app:index")
+    return HttpResponse(status=200)
     
