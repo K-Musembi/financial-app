@@ -40,7 +40,7 @@ const BudgetDashboard = ({ onId }) => {
                     </div>
                 ))
             ) : (
-                <div>
+                <div className="no-panel">
                     <p>No current budgets.</p>
                 </div>
             )}

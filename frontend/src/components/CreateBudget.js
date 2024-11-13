@@ -25,13 +25,13 @@ const CreateBudget = () => {
     };
 
     return (
-        <div className="createbudget-container">
+        <div className="expense-budget-container">
             <h2>Create a new budget</h2>
             <form onSubmit={handleCreateBudget}>
                 <label>
                     Choose time period
                     <select value={timePeriod} onChange={(event) => setTimePeriod(event.target.value)} required>
-                        <option value="" disabled></option>
+                        <option value="" disabled>Pick budget time period</option>
                         <option value="monthly">Monthly</option>
                         <option value="weekly">Weekly</option>
                     </select>

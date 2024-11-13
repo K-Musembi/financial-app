@@ -28,11 +28,11 @@ const Login = ({ onLogin }) => {
     };
 
     return (
-        <div className="login-container">
+        <div className="signup-login-container">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <label>
-                    Email
+                    Email   
                     <input type="text" value={email} onChange={(event) => setEmail(event.target.value)} required />
                 </label>
                 <label>

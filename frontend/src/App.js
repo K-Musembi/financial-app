@@ -8,14 +8,14 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Team from './components/Team';
 import Logout from './components/Logout';
-// import './App.css';
+import './App.css';
 import Dashboard from "./components/Dashboard";
 import BudgetDashboard from "./components/BudgetDashboard";
 import NavBar from "./components/NavBar";
 
 const App = () => {
     const [budgetId, setBudgetId] = useState(null);  // pass data from one component to another
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); 
     
     return (
         <Router>

@@ -1,0 +1,624 @@
+/* Main Layout Container */
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures it fills the entire viewport */
+    background-color: #e0f7fa; /* Light sea-blue background */
+    font-family: 'Arial', sans-serif;
+    color: #004d61; /* Dark sea-blue for text */
+}
+
+/* Main Content Area */
+.main-layout > * {
+    flex: 1; /* Ensures children components take available space */
+    padding: 20px; /* Consistent padding */
+    box-sizing: border-box;
+    overflow-y: auto; /* Allows scrolling for content */
+}
+
+/* Footer Styling */
+footer {
+    background-color: #00796b; /* Darker sea-blue for contrast */
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-top: auto; /* Keeps footer at the bottom */
+    height: 50px; /* Fixed height to ensure footer size is consistent */
+    /* overflow: hidden;*/
+    display: flex; /* Ensures content is centered vertically */
+    justify-content: center; /* Centers the text horizontally */
+    align-items: center; 
+}
+
+/* Link Styling in Footer */
+footer a {
+    color: #e0f7fa; /* Lighter shade of sea-blue */
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Navigation Bar Container */
+.nav-bar {
+    background-color: #006064; /* Dark sea-blue for the navigation bar */
+    padding: 10px 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: flex;
+    justify-content: center; /* Center-aligns the nav items */
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Unordered List within the NavBar */
+.nav-bar ul {
+    list-style: none; /* Remove default list styling */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Flex layout for horizontal menu */
+    gap: 20px; /* Space between items */
+}
+
+/* List Items within the NavBar */
+.nav-bar li {
+    margin: 0;
+}
+
+/* Links within the NavBar */
+.nav-bar a {
+    color: #e0f7fa; /* Light sea-blue for links */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+/* Hover Effect for Links */
+.nav-bar a:hover {
+    background-color: #004d61; /* Darker sea-blue on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+/* Active Link Styling */
+.nav-bar a.active {
+    background-color: #004d61; /* Highlight the active link */
+    color: #ffffff; /* White text for active link */
+}
+
+/* Home Container Styling */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content */
+    align-items: center; /* Horizontally center content */
+    height: 100vh; /* Ensures it fills the entire viewport */
+    background-color: #e0f7fa; /* Default sea-blue color */
+    /* background-image: url('./moneyimage.jpg'); */
+    background-size: cover; /* Ensures image covers the entire container */
+    background-position: center; /* Centers the image */
+    color: #004d61; /* Dark sea-blue text color */
+    font-family: 'Arial', sans-serif; /* Consistent font */
+    text-align: center; /* Centers the text inside the container */
+}
+
+/* Home Page Heading */
+.home-container h1 {
+    font-size: 3rem;
+    color: #00796b; /* Darker sea-blue color */
+    margin-bottom: 20px;
+}
+
+/* Home Page Paragraph */
+.home-container p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #004d61; /* Dark sea-blue for the paragraph text */
+}
+
+/* Button Styling */
+.home-container button {
+    padding: 10px 20px;
+    background-color: #00796b; /* Dark sea-blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.home-container button:hover {
+    background-color: #004d61; /* Darker shade for hover effect */
+}
+
+/* Container for the SignUp and Login Form */
+.signup-login-container {
+    background-color: #e0f7fa; /* Light sea-blue background */
+    width: 100%;
+    max-width: 400px; /* Limit form width */
+    margin: 50px auto; /* Center form on the page */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    font-family: 'Arial', sans-serif;
+    text-align: center; /* Center text inside the container */
+}
+
+/* Heading within the Form */
+.signup-login-container h2 {
+    color: #006064; /* Dark sea-blue */
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 1.8rem;
+}
+
+/* Form Styling */
+.signup-login-container form {
+    display: flex;
+    flex-direction: column; /* Stack form elements vertically */
+    gap: 15px; /* Space between form elements */
+    align-items: center;
+}
+
+/* Label for Input Fields */
+.signup-login-container label {
+    font-size: 1rem;
+    color: #004d61; /* Darker sea-blue for text */
+    text-align: left;
+}
+
+/* Input Fields */
+.signup-login-container input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #b2ebf2; /* Light border matching theme */
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    display: flex;
+}
+
+/* Input Focus Effect */
+.signup-login-container input:focus {
+    border-color: #006064; /* Darker sea-blue on focus */
+}
+
+/* Submit Button */
+.signup-login-container button {
+    background-color: #006064; /* Dark sea-blue button */
+    color: #ffffff; /* White text */
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transition */
+}
+
+/* Hover and Active Effect for Button */
+.signup-login-container button:hover {
+    background-color: #004d61; /* Darker sea-blue on hover */
+}
+
+.signup-login-container button:active {
+    transform: scale(0.98); /* Slight button press effect */
+}
+
+/* Paragraph for Additional Links */
+.signup-login-container p {
+    color: #004d61; /* Darker sea-blue for links */
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Logout Container Styling */
+.logout-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content */
+    align-items: center; /* Horizontally center content */
+    height: 100vh; /* Ensures it fills the entire viewport */
+    background-color: #e0f7fa; /* Sea-blue background */
+    color: #004d61; /* Dark sea-blue text color */
+    font-family: 'Arial', sans-serif; /* Consistent font */
+    text-align: center; /* Centers the text inside the container */
+}
+
+/* Logout Message */
+.logout-container p {
+    font-size: 1.5rem;
+    color: #00796b; /* Darker sea-blue color for the text */
+    margin-bottom: 30px; /* Spacing between the text and button */
+}
+
+/* Logout Button Styling */
+.logout-container button {
+    padding: 10px 20px;
+    background-color: #00796b; /* Dark sea-blue background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover Effect for Button */
+.logout-container button:hover {
+    background-color: #004d61; /* Darker shade for hover effect */
+}
+
+/* Main Dashboard Container */
+.dashboard {
+    display: flex; /* Flex layout for side-by-side panels */
+    justify-content: space-between; /* Space out panels evenly */
+    gap: 20px; /* Space between panels */
+    padding: 20px;
+    background-color: #e0f7fa; /* Light sea-blue background */
+    min-height: 80vh; /* Make sure the dashboard covers most of the viewport */
+    box-sizing: border-box;
+}
+
+/* Individual Panels inside the Dashboard */
+.panel {
+    background-color: #ffffff; /* White background for contrast */
+    flex: 1; /* Allow panels to take equal width */
+    border-radius: 10px; /* Rounded corners for a modern look */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Stack content vertically within the panel */
+    justify-content: space-between; /* Space out content inside each panel */
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover Effect for Panels */
+.panel:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Heading within Each Panel */
+.panel h2 {
+    color: #006064; /* Dark sea-blue */
+    margin-bottom: 10px; /* Space below the heading */
+    font-size: 1.5rem;
+}
+
+/* Paragraph Text within Each Panel */
+.panel p {
+    color: #004d61; /* Darker sea-blue */
+    font-size: 1rem;
+    margin-bottom: 20px; /* Space below the paragraph */
+}
+
+/* Button within Each Panel */
+.panel button {
+    align-self: flex-start; /* Align button to the left */
+    background-color: #006064; /* Dark sea-blue button */
+    color: #ffffff; /* White text for contrast */
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transition */
+}
+
+/* Button Hover and Active Effect */
+.panel button:hover {
+    background-color: #004d61; /* Darker sea-blue on hover */
+}
+
+.panel button:active {
+    transform: scale(0.97); /* Slightly press effect */
+}
+
+/* Main Budget Container */
+.budget-container {
+    padding: 20px;
+    background-color: #e0f7fa; /* Light sea-blue background */
+    min-height: 80vh; /* Ensure the container fills most of the viewport */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center all content horizontally */
+    justify-content: space-between;
+    box-sizing: border-box;
+    position: relative; /* To properly position the bottom button */
+}
+
+/* Budget Panel Container */
+.budget-panel {
+    background-color: #ffffff; /* White background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    margin: 15px 0; /* Vertical spacing between budget panels */
+    width: 100%; /* Take full width inside container */
+    max-width: 800px; /* Limit the maximum width for better readability */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover Effect for Budget Panel */
+.budget-panel:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Content in Each Budget Panel */
+.budget-panel h2 {
+    color: #006064; /* Dark sea-blue for the title */
+    margin-bottom: 10px; /* Space below the heading */
+    font-size: 1.5rem;
+}
+
+.budget-panel p {
+    color: #004d61; /* Darker sea-blue for the text */
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+/* Button Inside Budget Panel */
+.budget-panel button {
+    background-color: #006064; /* Dark sea-blue button */
+    color: #ffffff; /* White text */
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-start; /* Align button to the left inside panel */
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.budget-panel button:hover {
+    background-color: #004d61; /* Darker sea-blue on hover */
+}
+
+.budget-panel button:active {
+    transform: scale(0.97); /* Slightly press effect */
+}
+
+/* No Budget Panel - When No Budgets are Present */
+.no-panel {
+    background-color: #f0f0f0; /* Light grey background for emphasis */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin: 15px 0;
+    color: #004d61; /* Dark sea-blue for the text */
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Bottom Button Centered */
+.budget-container > button {
+    background-color: #00838f; /* Medium sea-blue color */
+    color: #ffffff;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    position: absolute;
+    bottom: 20px; /* 20px from the bottom of the container */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust position to center */
+}
+
+.budget-container > button:hover {
+    background-color: #006064; /* Darker sea-blue on hover */
+}
+
+.budget-container > button:active {
+    transform: translateX(-50%) scale(0.97); /* Slightly press effect */
+}
+
+/* Main Team Container */
+.team-container {
+    padding: 30px 20px;
+    background-color: #e0f7fa; /* Light sea-blue background */
+    min-height: 80vh; /* Ensure it takes up enough height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+/* Heading for the Team Section */
+.team-container h2 {
+    color: #006064; /* Dark sea-blue */
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Flex container for team cards */
+.team-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the cards */
+    gap: 20px;
+}
+
+/* Team Card Styling */
+.team-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Fixed width for cards */
+    max-width: 90%; /* Ensure responsiveness */
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for team card */
+.team-card:hover {
+    transform: translateY(-5px); /* Slight lift */
+    box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+}
+
+/* Team Photo Section inside Team Card */
+.team-photo {
+    background-color: #e0f7fa; /* Light sea-blue background */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    height: 250px; /* Fixed height for photo section */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-photo img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%; /* Circular image */
+    border: 5px solid #ffffff; /* White border around image */
+}
+
+/* Team Information Section inside Team Card */
+.team-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.team-info h2 {
+    color: #004d61; /* Darker sea-blue for the name */
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.team-info p {
+    color: #006064; /* Sea-blue for the text */
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+/* Responsive Layout for Smaller Screens */
+@media (max-width: 768px) {
+    /* Stack team cards vertically on small screens */
+    .team-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .team-card {
+        width: 100%; /* Full width on small screens */
+    }
+}
+
+/* Main Expense Budget Container */
+.expense-budget-container {
+    padding: 40px 20px;
+    background-color: #e0f7fa; /* Light sea-blue background */
+    min-height: 80vh; /* Ensure it takes up enough height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+/* Heading for the Expense Budget Section */
+.expense-budget-container h2 {
+    color: #006064; /* Dark sea-blue */
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Form Styling */
+.expense-budget-container form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px; /* Fixed max width for the form */
+    display: flex;
+    flex-direction: column;
+    /*display: grid;*/
+    /*grid-template-columns: 1fr 2fr;*/
+    gap: 15px;
+    align-items: center;
+}
+
+/* Label Styling */
+.expense-budget-container form label {
+    color: #004d61; /* Darker sea-blue for labels */
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Select Input Styling */
+.expense-budget-container form select {
+    padding: 10px;
+    border: 2px solid #004d61; /* Darker border */
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-size: 1rem;
+    color: #004d61;
+    display: flex;
+}
+
+/* Text Input Styling */
+.expense-budget-container form input {
+    padding: 10px;
+    border: 2px solid #004d61; /* Darker border */
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-size: 1rem;
+    color: #004d61;
+    display: flex;
+}
+
+/* Button Styling */
+.expense-budget-container form button {
+    padding: 12px;
+    background-color: #004d61; /* Dark sea-blue for button */
+    color: #ffffff;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover Effect on Button */
+.expense-budget-container form button:hover {
+    background-color: #00796b; /* Slightly lighter sea-blue */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    .expense-budget-container form {
+        width: 90%; /* Make form width 90% of the container on small screens */
+    }
+}
+
+/* Stack panels on smaller screens */
+@media (max-width: 768px) {
+    .dashboard {
+        flex-direction: column; /* Change to vertical stacking */
+    }
+}
+
+/* Stack panels vertically on smaller screens */
+@media (max-width: 768px) {
+    .budget-panel {
+        width: 100%;
+    }
+}

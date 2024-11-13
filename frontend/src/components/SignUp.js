@@ -31,7 +31,7 @@ const SignUp = ({ onSignUp }) => {
     };
 
     return (
-        <div className="signup-container">
+        <div className="signup-login-container">
             <h2>Create Account</h2>
             <form onSubmit={handleSignUp}>
                 <label>

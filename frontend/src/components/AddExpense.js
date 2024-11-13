@@ -27,13 +27,13 @@ const AddExpense = ({ budgetId }) => {
     };
 
     return (
-        <div className="addexpense-container">
+        <div className="expense-budget-container">
             <h2>Track your spending</h2>
             <form onSubmit={handleAddExpense}>
                 <label>
                     Category
                     <select value={category} onChange={(event) => setCategory(event.target.value)} required>
-                        <option value="" disabled>Choose a category</option>
+                        <option value="" disabled>Choose from categories</option>
                         <option value="groceries">Groceries</option>
                         <option value="food">Food</option>
                         <option value="rent">Rent</option>
