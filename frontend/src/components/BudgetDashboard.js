@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../config";
 
-const BudgetDashboard = () => {
+const BudgetDashboard = ({ onId }) => {
     const [budgets, setBudgets] = useState([]);
-    const [budgetId, setBudgetId] = useState("");
     const navigate = useNavigate()
 
     // useEffect defines action to occur when page is loaded
@@ -34,8 +33,8 @@ const BudgetDashboard = () => {
                         <p>Amount: {budget.amount}</p>
                         <p>Total Expenditure: {budget.total_expenditure}</p>
                         <button onClick={() => {
-                            setBudgetId(budget.budgetid);
-                            navigate('/addexpense', { state: { budgetId }});
+                            onId(budget.budgetid);  // pass budgetid to parent component
+                            navigate('/addexpense');
                             // repetition budget.budgetid, incase state isn't updated immediately 
                         }}>Add expenses</button>
                     </div>

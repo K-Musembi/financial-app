@@ -14,8 +14,8 @@ urlpatterns = [
     path("signup", views.signup, name="signup"),
     path("login", views.login, name="login"),
     path("make_budget", views.make_budget, name="make_budget"),
-    path("budgetdashboard/createbudget", views.createbudget, name="createbudget"),
+    path("createbudget", views.createbudget, name="createbudget"),
     path("expense/<str:budgetid>", views.expense, name="expense"),
-    path("budgetdashboard/addexpense/<str:budgetid>", views.addexpense, name="addexpense"),
+    path("addexpense", views.addexpense, name="addexpense"),
     path("logout", views.logout, name="logout"),
 ]

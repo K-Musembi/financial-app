@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../config";
 
-const SignUp = (onLogin) => {
+const SignUp = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,16 +14,15 @@ const SignUp = (onLogin) => {
         
         const response = await fetch(`${API_URL}/signup`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", },
             body: JSON.stringify({ username, email, password }),
-            credentials: "include"
+            credentials: "include",
         });
         if (response.ok) {
             alert("Successfully signed up!");
             setUsername("");
             setEmail("");
             setPassword("");
-            onLogin();
             navigate("/dashboard");
         } else {
             alert("Please try again.");

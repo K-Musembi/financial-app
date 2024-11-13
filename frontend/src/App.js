@@ -7,12 +7,13 @@ import AddExpense from "./components/AddExpense";
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Team from './components/Team';
-// import Logout from './components/Logout';
+import Logout from './components/Logout';
 // import './App.css';
 import Dashboard from "./components/Dashboard";
 import BudgetDashboard from "./components/BudgetDashboard";
 
 const App = () => {
+    const [budgetId, setBudgetId] = useState(null);
     
     return (
         <Router>
@@ -20,12 +21,13 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<MainLayout><Home /></MainLayout>} />
                     <Route path="/dashboard" element={<MainLayout><Dashboard /></MainLayout>} />
-                    <Route path="/budgetdashboard" element={<MainLayout><BudgetDashboard /></MainLayout>} />
+                    <Route path="/budgetdashboard" element={<MainLayout><BudgetDashboard onId={setBudgetId} /></MainLayout>} />
                     <Route path="/signup" element={<MainLayout><SignUp /></MainLayout>} />
                     <Route path="/login" element={<MainLayout><Login /></MainLayout>} />
+                    <Route path="/logout" element={<MainLayout><Logout /></MainLayout>} />
                     <Route path="/team" element={<MainLayout><Team /></MainLayout>} />
-                    <Route path="/budgetdashboard/addexpense" element={<MainLayout><AddExpense /></MainLayout>} />
-                    <Route path="/budgetdashboard/createbudget" element={<MainLayout><CreateBudget /></MainLayout>} />
+                    <Route path="/addexpense" element={<MainLayout><AddExpense budgetId={budgetId} /></MainLayout>} />
+                    <Route path="/createbudget" element={<MainLayout><CreateBudget /></MainLayout>} />
                 </Routes>
             </div>
         </Router>

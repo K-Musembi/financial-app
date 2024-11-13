@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
 
-const Login = (onLogin) => {
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -19,7 +19,6 @@ const Login = (onLogin) => {
         });
         if (response.ok) {
             // const result = await response.json();
-            onLogin();
             alert("Successful login!");
             navigate("/dashboard");
         } else {

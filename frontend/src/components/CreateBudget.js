@@ -40,6 +40,7 @@ const CreateBudget = () => {
                     Amount
                     <input type="number" value={amount} onChange={(event) => setAmount(event.target.value)} required />
                 </label>
+                <button type="submit">Create</button>
             </form>
         </div>
     );

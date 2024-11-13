@@ -11,10 +11,12 @@ const AddExpense = ({ budgetId }) => {
     const handleAddExpense = async (event) => {
         event.preventDefault();
 
+        const budgetid = budgetId
+
         const response = await fetch(`${API_URL}/addexpense`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ category, amount, budgetId }),
+            body: JSON.stringify({ category, amount, budgetid }),
             credentials: "include"
         });
         if (response.ok) {

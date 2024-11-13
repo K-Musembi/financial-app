@@ -7,6 +7,7 @@ from .models import User, Budget, Expense
 from werkzeug.security import check_password_hash
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 user_collection = User()
 expense_collection = Expense()
@@ -34,9 +35,16 @@ def login_page(request):
 def signup(request):
     """sign up page"""
     if request.method == "POST":
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+        # when using formData in React:
+        # username = request.POST.get("username")
+        # email = request.POST.get("email")
+        # password = request.POST.get("password")
+
+        # when using JSON.stringify in React:
+        data = json.loads(request.body)
+        username = data.get("username")
+        email = data.get("email")
+        password = data.get("password")
 
         new_user = user_collection.find_one({"email": email})
         
@@ -57,9 +65,11 @@ def signup(request):
 def login(request):
     """login page"""
     if request.method == "POST":
-        # username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+        
+        # if using formData in React, use request.POST.get("email")
+        data = json.loads(request.body)
+        email = data.get("email")
+        password = data.get("password")
 
         user = user_collection.find_one({"email": email})
 
@@ -82,7 +92,7 @@ def budget_dashboard(request):
     user_id = request.session.get("user_id")
 
     if not user_id:
-        return redirect("app:login_page")
+        return HttpResponse(status=401)
     
     # default id in the PyMongo database is of type ObjectID
     user_id = ObjectId(user_id)
@@ -92,6 +102,8 @@ def budget_dashboard(request):
 
     for budget in budgets:
         budget["budgetid"] = str(budget["_id"])
+        budget["_id"] = str(budget["_id"])
+        budget["user_id"] = str(budget["user_id"])
     
     data = {
         "username": username.capitalize(),
@@ -117,8 +129,9 @@ def createbudget(request):
 
     if request.method == 'POST':
         user_id = request.session.get("user_id")
-        time_period = request.POST.get('time_period')
-        amount = request.POST.get('amount')
+        data = json.loads(request.body)
+        time_period = data.get('timePeriod')
+        amount = data.get('amount')
 
         user_id = ObjectId(user_id)
         total_expenditure = 0
@@ -145,9 +158,10 @@ def addexpense(request):
     from bson import ObjectId
 
     if request.method == 'POST':
-        category = request.POST.get("category")
-        amount = request.POST.get("amount")
-        budgetid = request.POST.get("budgetId")
+        data = json.loads(request.body)
+        category = data.get("category")
+        amount = data.get("amount")
+        budgetid = data.get("budgetid")
     
         expense_collection.create_expense(budgetid, category, amount)
         budget = budget_collection.find_one({"_id": ObjectId(budgetid)})
@@ -164,7 +178,7 @@ def addexpense(request):
             return HttpResponse(status=200)
         else:
             # return redirect("app:budget_dashboard")
-            return HttpResponse(status=200)
+            return HttpResponse(status=401)
  
     # return redirect("app:index")
     return HttpResponse(status=401)
