@@ -11,20 +11,23 @@ import Logout from './components/Logout';
 // import './App.css';
 import Dashboard from "./components/Dashboard";
 import BudgetDashboard from "./components/BudgetDashboard";
+import NavBar from "./components/NavBar";
 
 const App = () => {
     const [budgetId, setBudgetId] = useState(null);  // pass data from one component to another
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     
     return (
         <Router>
+            <NavBar isLoggedIn={isLoggedIn} />
             <div className="app-container">
                 <Routes>
                     <Route path="/" element={<MainLayout><Home /></MainLayout>} />
                     <Route path="/dashboard" element={<MainLayout><Dashboard /></MainLayout>} />
                     <Route path="/budgetdashboard" element={<MainLayout><BudgetDashboard onId={setBudgetId} /></MainLayout>} />
-                    <Route path="/signup" element={<MainLayout><SignUp /></MainLayout>} />
-                    <Route path="/login" element={<MainLayout><Login /></MainLayout>} />
-                    <Route path="/logout" element={<MainLayout><Logout /></MainLayout>} />
+                    <Route path="/signup" element={<MainLayout><SignUp onSignUp={setIsLoggedIn} /></MainLayout>} />
+                    <Route path="/login" element={<MainLayout><Login onLogin={setIsLoggedIn} /></MainLayout>} />
+                    <Route path="/logout" element={<MainLayout><Logout onLogout={setIsLoggedIn} /></MainLayout>} />
                     <Route path="/team" element={<MainLayout><Team /></MainLayout>} />
                     <Route path="/addexpense" element={<MainLayout><AddExpense budgetId={budgetId} /></MainLayout>} />
                     <Route path="/createbudget" element={<MainLayout><CreateBudget /></MainLayout>} />

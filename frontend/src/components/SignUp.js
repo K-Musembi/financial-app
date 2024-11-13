@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../config";
 
-const SignUp = () => {
+const SignUp = ({ onSignUp }) => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,6 +20,7 @@ const SignUp = () => {
         });
         if (response.ok) {
             alert("Successfully signed up!");
+            onSignUp(true);
             setUsername("");
             setEmail("");
             setPassword("");

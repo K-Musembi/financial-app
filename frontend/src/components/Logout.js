@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../config';
 
-const Logout = () => {
+const Logout = ({ onLogout }) => {
     const navigate = useNavigate()
 
     const handleLogout = async () => {
@@ -12,6 +12,7 @@ const Logout = () => {
         });
         
         if (response.ok) {
+            onLogout(false);
             navigate("/");
         } else {
             alert("Logout failed!");
