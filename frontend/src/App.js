@@ -13,7 +13,7 @@ import Dashboard from "./components/Dashboard";
 import BudgetDashboard from "./components/BudgetDashboard";
 
 const App = () => {
-    const [budgetId, setBudgetId] = useState(null);
+    const [budgetId, setBudgetId] = useState(null);  // pass data from one component to another
     
     return (
         <Router>
