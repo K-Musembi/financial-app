@@ -1,9 +1,0 @@
-{% extends "app/layout.html" %}
-{% block title %}No Budget{% endblock %}
-{% block content %}
-<section class="dashboard-section">
-  <h2>Welcome {{ username }}</h2>
-  <p>You have no current budgets.</p>
-  <a href="{% url 'app:make_budget' %}" class="btn">Make a Budget</a>
-</section>
-{% endblock %}

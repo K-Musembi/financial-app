@@ -9,7 +9,7 @@ const BudgetDashboard = ({ onId }) => {
     // useEffect defines action to occur when page is loaded
     useEffect(() => {
         const fetchBudgets = async () => {
-            const response = await fetch(`${API_URL}/budgetdashboard`, {
+            const response = await fetch(`${API_URL}/budget_dashboard`, {
                 credentials: "include"
             });
 
@@ -44,7 +44,7 @@ const BudgetDashboard = ({ onId }) => {
                     <p>No current budgets.</p>
                 </div>
             )}
-            <button onClick={() => navigate('/createbudget')}>Create new budget</button>
+            <button onClick={() => navigate('/createbudget')}>Create budget</button>
         </div>
     );
 };
